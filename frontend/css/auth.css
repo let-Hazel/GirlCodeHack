@@ -1,0 +1,475 @@
+/* =========================
+   SKILLINK AUTH / SIGN UP
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.auth-body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f1efff 0%,
+            #ffffff 50%,
+            #f7f8fc 100%
+        );
+}
+
+
+/* =========================
+   CONTAINER
+========================= */
+
+.auth-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+
+/* =========================
+   BRAND
+========================= */
+
+.auth-brand {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.auth-brand a {
+    text-decoration: none;
+
+    color: #172033;
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+.auth-brand span {
+    color: #6c4cff;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.auth-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e7e8ef;
+
+    border-radius: 22px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 20px 60px rgba(35, 29, 80, 0.10);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.auth-header {
+    margin-bottom: 30px;
+}
+
+.auth-header span {
+    display: block;
+
+    color: #6c4cff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 8px;
+}
+
+.auth-header h1 {
+    color: #172033;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    margin-bottom: 10px;
+}
+
+.auth-header p {
+    color: #718096;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.auth-card form {
+    width: 100%;
+}
+
+
+/* Labels */
+
+.auth-card form > label {
+    display: block;
+
+    color: #263043;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+/* Inputs */
+
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="tel"],
+.auth-card input[type="password"],
+.auth-card select {
+    width: 100%;
+
+    height: 50px;
+
+    padding: 0 15px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #dce1ea;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #172033;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Placeholder */
+
+.auth-card input::placeholder {
+    color: #a0a8b7;
+}
+
+
+/* Focus */
+
+.auth-card input:focus,
+.auth-card select:focus {
+    border-color: #6c4cff;
+
+    box-shadow:
+        0 0 0 3px rgba(108, 76, 255, 0.12);
+}
+
+
+/* Select */
+
+.auth-card select {
+    cursor: pointer;
+
+    appearance: auto;
+}
+
+
+/* =========================
+   ROLE SELECTION
+========================= */
+
+.role-select {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+/* Individual role */
+
+.role-option {
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    min-height: 110px;
+
+    padding: 18px;
+
+    border: 1.5px solid #dce1ea;
+
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Hide default radio */
+
+.role-option input[type="radio"] {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* Hover */
+
+.role-option:hover {
+    border-color: #9b8cff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(108, 76, 255, 0.08);
+}
+
+
+/* Selected role */
+
+.role-option:has(input[type="radio"]:checked) {
+    border-color: #6c4cff;
+
+    background: #f5f3ff;
+
+    box-shadow:
+        0 8px 25px rgba(108, 76, 255, 0.10);
+}
+
+
+/* Role content */
+
+.role-option div {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    font-size: 22px;
+}
+
+
+/* Role title */
+
+.role-option strong {
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* Role description */
+
+.role-option small {
+    color: #718096;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+
+.auth-button {
+    width: 100%;
+
+    height: 52px;
+
+    margin-top: 5px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #6c4cff;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.auth-button:hover {
+    background: #5639dc;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(108, 76, 255, 0.25);
+}
+
+.auth-button:active {
+    transform: translateY(0);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.auth-footer {
+    text-align: center;
+
+    margin-top: 25px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #edf0f5;
+}
+
+.auth-footer p {
+    color: #718096;
+
+    font-size: 14px;
+}
+
+.auth-footer a {
+    color: #6c4cff;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .auth-body {
+        padding: 20px 15px;
+
+        align-items: flex-start;
+    }
+
+    .auth-container {
+        margin-top: 20px;
+    }
+
+    .auth-card {
+        padding: 28px 22px;
+
+        border-radius: 18px;
+    }
+
+    .auth-header h1 {
+        font-size: 25px;
+    }
+
+    .auth-header p {
+        font-size: 14px;
+    }
+
+    .role-select {
+        grid-template-columns: 1fr;
+    }
+
+    .role-option {
+        min-height: 90px;
+
+        align-items: center;
+    }
+
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 380px) {
+
+    .auth-card {
+        padding: 24px 18px;
+    }
+
+    .auth-header h1 {
+        font-size: 23px;
+    }
+
+    .auth-brand a {
+        font-size: 26px;
+    }
+
+}

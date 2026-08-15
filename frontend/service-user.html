@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Service User Dashboard | SkillLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard-layout">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="dashboard-logo">
+        Skill<span>Link</span>
+    </div>
+
+
+    <div class="user-mini">
+
+        <div class="avatar">
+            U
+        </div>
+
+        <div>
+            <strong id="userName">
+                User
+            </strong>
+
+            <small>
+                Service User
+            </small>
+        </div>
+
+    </div>
+
+
+    <nav class="dashboard-nav">
+
+        <a
+            href="#"
+            class="active"
+        >
+            🏠 Dashboard
+        </a>
+
+        <a href="#">
+            🔎 Find Services
+        </a>
+
+        <a href="#">
+            📋 My Requests
+        </a>
+
+        <a href="#">
+            💬 Messages
+        </a>
+
+        <a href="#">
+            ❤️ Saved Providers
+        </a>
+
+        <a href="#">
+            👤 My Profile
+        </a>
+
+        <a href="#">
+            ⚙️ Settings
+        </a>
+
+    </nav>
+
+
+    <button
+        class="logout-btn"
+        id="logoutBtn"
+    >
+        ↪ Logout
+    </button>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="dashboard-main">
+
+
+<header class="dashboard-header">
+
+    <div>
+
+        <span>
+            SERVICE USER
+        </span>
+
+        <h1>
+            Find the right person for the job.
+        </h1>
+
+    </div>
+
+    <div class="notification">
+        🔔
+    </div>
+
+</header>
+
+
+<!-- SEARCH -->
+
+<section class="search-panel">
+
+    <h2>
+        What service do you need?
+    </h2>
+
+    <p>
+        Search for skilled people near you.
+    </p>
+
+
+    <div class="large-search">
+
+        <input
+            type="text"
+            id="serviceSearch"
+            placeholder="Search e.g. hairdresser, plumber..."
+        >
+
+        <button id="searchBtn">
+            🔎 Search
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- CATEGORIES -->
+
+<section>
+
+    <div class="section-title">
+
+        <h2>
+            Popular services
+        </h2>
+
+        <a href="#">
+            View all
+        </a>
+
+    </div>
+
+
+    <div class="dashboard-categories">
+
+        <button>
+            💇🏽
+            <span>Beauty</span>
+        </button>
+
+        <button>
+            🔧
+            <span>Repairs</span>
+        </button>
+
+        <button>
+            💻
+            <span>Technology</span>
+        </button>
+
+        <button>
+            🧹
+            <span>Cleaning</span>
+        </button>
+
+        <button>
+            📚
+            <span>Tutoring</span>
+        </button>
+
+        <button>
+            🎨
+            <span>Creative</span>
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- PROVIDERS -->
+
+<section>
+
+    <div class="section-title">
+
+        <h2>
+            Recommended providers
+        </h2>
+
+        <a href="#">
+            View all
+        </a>
+
+    </div>
+
+
+    <div
+        class="dashboard-provider-grid"
+        id="providerGrid"
+    >
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script src="js/user-dashboard.js"></script>
+
+</body>
+
+</html>

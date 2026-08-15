@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sign Up | SkillLink</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+</head>
+
+
+<body class="auth-body">
+
+
+<div class="auth-container">
+
+
+    <div class="auth-brand">
+
+        <a href="index.html">
+
+            Skill<span>Link</span>
+
+        </a>
+
+    </div>
+
+
+    <div class="auth-card">
+
+        <div class="auth-header">
+
+            <span>
+                JOIN SKILLLINK
+            </span>
+
+            <h1>
+                Create your account
+            </h1>
+
+            <p>
+                Choose how you want to use SkillLink.
+            </p>
+
+        </div>
+
+
+        <form id="signupForm">
+
+
+            <label>
+                Full name
+            </label>
+
+            <input
+                type="text"
+                id="signupName"
+                placeholder="Your full name"
+                required
+            >
+
+
+            <label>
+                Email address
+            </label>
+
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="you@example.com"
+                required
+            >
+
+
+            <label>
+                Phone number
+            </label>
+
+            <input
+                type="tel"
+                id="signupPhone"
+                placeholder="071 234 5678"
+                required
+            >
+
+
+            <label>
+                I am a...
+            </label>
+
+            <div class="role-select">
+
+                <label class="role-option">
+
+                    <input
+                        type="radio"
+                        name="role"
+                        value="user"
+                        checked
+                    >
+
+                    <div>
+                        🔎
+                        <strong>
+                            Service User
+                        </strong>
+
+                        <small>
+                            I need services
+                        </small>
+                    </div>
+
+                </label>
+
+
+                <label class="role-option">
+
+                    <input
+                        type="radio"
+                        name="role"
+                        value="provider"
+                    >
+
+                    <div>
+                        💼
+                        <strong>
+                            Service Provider
+                        </strong>
+
+                        <small>
+                            I offer services
+                        </small>
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Create a password"
+                required
+            >
+
+
+            <button
+                type="submit"
+                class="btn btn-primary auth-button"
+            >
+                Create Account →
+            </button>
+
+        </form>
+
+
+        <div class="auth-footer">
+
+            <p>
+                Already have an account?
+                <a href="login.html">
+                    Login
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script src="js/auth.js"></script>
+
+</body>
+
+</html>
