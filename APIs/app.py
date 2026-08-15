@@ -3,7 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-DB_PATH = "skillPay.db"
+DB_PATH = "skillLink.db"
 
 
 def get_connection():
@@ -25,8 +25,6 @@ def get_providers():
                 users.id,
                 users.name,
                 users.surname,
-                users.email,
-                users.bio,
                 users.location,
                 users.avg_rating,
                 users.completed_jobs_count,
@@ -35,20 +33,20 @@ def get_providers():
                 skills.category,
                 skills.price_min,
                 skills.price_max,
-                skills.description AS skill_description
+                skills.description
             FROM users
-            JOIN skills ON users.id = skills.provider_id
+            JOIN skills
+                ON users.id = skills.provider_id
             WHERE skills.active = 1
             AND skills.skill_name LIKE ?
         """, (f"%{skill}%",)).fetchall()
+
     else:
         rows = conn.execute("""
             SELECT
                 users.id,
                 users.name,
                 users.surname,
-                users.email,
-                users.bio,
                 users.location,
                 users.avg_rating,
                 users.completed_jobs_count,
@@ -57,9 +55,10 @@ def get_providers():
                 skills.category,
                 skills.price_min,
                 skills.price_max,
-                skills.description AS skill_description
+                skills.description
             FROM users
-            JOIN skills ON users.id = skills.provider_id
+            JOIN skills
+                ON users.id = skills.provider_id
             WHERE skills.active = 1
         """).fetchall()
 
