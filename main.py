@@ -1,3 +1,3 @@
-from databases import *
+from database.databases import *
 
 init_db()
