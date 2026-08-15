@@ -1,61 +1,8 @@
-# import sqlite3
-
-# conn = sqlite3.connect("users.db")
-# cursor = conn.cursor
-
-# def create_databases():
-#     cursor.execute('''
-#         CREATE TABLE IF NOT EXISTS users (
-#             id INTEGER PRIMARY KEY AUTOINCREMENT,
-#             name TEXT NOT NULL,
-#             surname TEXT NOT NULL,
-#             email TEXT UNIQUE,
-#             phone_number TEXT,
-#             role TEXT DEFAULT 'skills user',
-#             password TEXT,
-#             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-#         )
-#     ''')
-
-#     conn.commit()
-#      id, name, email, skill, description, price_min, price_max, rating, completed_jobs, created_at
-#     cursor.execute('''
-#         CREATE TABLE IF NOT EXISTS skill_provider (
-#             name TEXT NOT NULL,
-#             surname TEXT NOT NULL,
-#             email TEXT UNIQUE,
-#             phone_number TEXT,
-#             role TEXT DEFAULT 'skill provider',
-#             skill  TEXT,
-#             password TEXT,
-#             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-#         )
-#     ''')
-
-#     conn.commit()
-
-# def register(name, surname, phone_number, email, password, role = "resident"):
-#     cursor.execute(
-#     "INSERT INTO users (name, surname, email, phone, role, password) VALUES (?, ?, ?, ?, ?, ?)",
-#     (name, surname, email, phone_number, role, password)
-#     )
-#     conn.commit()
-#     return "Welcome Aboard!"
-
-# def log_in(email, password):
-#     cursor.execute("SELECT * FROM users WHERE email = ? AND password = ?", (email, password))
-#     row = cursor.fetchone()
-
-#     if row != "":
-#         return "Invalid email or password!"
-#     else:
-#         return "Welcome Back!"
-
 import sqlite3
 from datetime import datetime, timezone
 import uuid
 
-DB_PATH = "skillPay.db"
+DB_PATH = "skillLink.db"
 
 
 def get_connection():
@@ -71,7 +18,7 @@ def init_db():
         name TEXT NOT NULL,
         surname TEXT NOT NULL,
         email TEXT NOT NULL,
-        bio TEXT,
+        password TEXT,
         location TEXT,
         created_at TEXT NOT NULL,
         avg_rating REAL NOT NULL DEFAULT 0,
@@ -137,22 +84,27 @@ def _now():
     return datetime.now(timezone.utc).isoformat()
 
 
-def create_user(name, surname, email, bio="", location=""):
+def create_user(id, name, surname, email, password, location=""):
     conn = get_connection()
     with conn:
         conn.execute(
             "INSERT INTO users (id, name, avatar_emoji, bio, location, created_at) "
-            "VALUES (?, ?, ?, ?, ?)",
-            (name, bio, location, _now()),
+            "VALUES (?, ?, ?, ?)",
+            (id, name, surname, email, location, _now()),
         )
         user_id = conn.execute(
-                    "SELECT id FROM users WHERE name = ? AND surname = ? AND email = ? (name) "
-                    "VALUES (?, ?, ?, ?, ?)",
-                    (name, surname, email),
+                    "SELECT id FROM users WHERE id = ? "
+                    "VALUES (?)",
+                    (id),
                 )
     conn.close()
     return user_id
 
+def log_in(email, password):
+    conn = get_connection()
+    conn.execute("SELECT * FROM users WHERE email = ? AND password = ?"
+                        "VALUES (?, ?)",
+                        (email, password))
 
 def get_user(user_id):
     conn = get_connection()
