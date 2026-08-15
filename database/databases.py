@@ -14,7 +14,7 @@ def init_db():
     conn = get_connection()
     conn.execute("""
     CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id  TEXT,
         name TEXT NOT NULL,
         surname TEXT NOT NULL,
         email TEXT NOT NULL,
@@ -88,9 +88,9 @@ def create_user(id, name, surname, email, password, location=""):
     conn = get_connection()
     with conn:
         conn.execute(
-            "INSERT INTO users (id, name, avatar_emoji, bio, location, created_at) "
-            "VALUES (?, ?, ?, ?)",
-            (id, name, surname, email, location, _now()),
+            "INSERT INTO users (id, name, surname, email, password, location, created_at) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (id, name, surname, email, password, location, _now()),
         )
         user_id = conn.execute(
                     "SELECT id FROM users WHERE id = ? "
