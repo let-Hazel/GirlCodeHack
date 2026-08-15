@@ -1,5 +1,5 @@
 import sqlite3
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 import uuid
 
 DB_PATH = "skillLink.db"
@@ -20,7 +20,7 @@ def init_db():
     # USERS
     conn.execute("""
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             surname TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
@@ -113,13 +113,14 @@ def init_db():
 
 
 def _now():
-    return datetime.now(timezone.utc).isoformat()
+    return date.today().isoformat()
 
 
 
-def create_user(name, surname, email, password="", location=""):
+def create_user(id, name, surname, email, password="", location=""):
 
     conn = get_connection()
+    now = _now()
 
     try:
         with conn:
@@ -127,6 +128,7 @@ def create_user(name, surname, email, password="", location=""):
             cursor = conn.execute("""
                 INSERT INTO users
                 (
+                    id,
                     name,
                     surname,
                     email,
@@ -134,14 +136,15 @@ def create_user(name, surname, email, password="", location=""):
                     location,
                     created_at
                 )
-                VALUES (?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (
+                id,
                 name,
                 surname,
                 email,
                 password,
                 location,
-                _now()
+                now
             ))
 
             return cursor.lastrowid
@@ -164,10 +167,8 @@ def log_in(email, password):
     conn.close()
 
     if row:
-        return dict(row)
-
-    return None
-
+        return "Welcome Back!"
+    return "User does not exist"
 
 def get_user(user_id):
 

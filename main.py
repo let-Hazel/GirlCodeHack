@@ -1,7 +1,5 @@
 from database.databases import *
 
-init_db()
-
 def register():
     name = input("Name: ")
     surname = input("Surname: ")
@@ -16,14 +14,24 @@ def register():
     address = input("Address: ")
     password = input("Enter a password: ")
 
-    create_user(id, name, surname, email, password, address)
+    return create_user(identity, name, surname, email, password, address)
 
 def log_in():
     email = input("Enter your email: ")
     password = input("Enter your password: ")
-    log_in(email, password)
+    return log_in(email, password)
 
 def main():
     init_db()
 
-    print("")
+    print("1. Login \n 2. Register")
+    log = input("Enter a number: ")
+
+    if log == "1":
+        log_in()
+    elif log == "2":
+        register()
+    else:
+        print("Invalid!")
+
+main()
