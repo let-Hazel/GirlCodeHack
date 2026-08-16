@@ -197,8 +197,8 @@ a {
 }
 
 .card-one {
-    top: 30px;
-    left: 20%;
+    top: 180px;
+    left: 40%;
 }
 
 .card-two {
@@ -207,8 +207,23 @@ a {
 }
 
 .card-three {
-    bottom: 30px;
+    bottom: 40px;
     left: 10%;
+}
+
+.card-four {
+    bottom: 30px;
+    left: 40%;
+}
+
+.card-five {
+    bottom: 180px;
+    center: 10%;
+}
+
+.card-six {
+    bottom: 30px;
+    right: 10%;
 }
 
 

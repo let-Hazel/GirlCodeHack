@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
+    <link rel="stylesheet" href="css/ai.css">
+
 </head>
 
 
@@ -128,30 +130,68 @@
 
 <section class="search-panel">
 
-    <h2>
-        What service do you need?
-    </h2>
+    <div class="ai-heading">
+        <div class="ai-icon">✨</div>
 
-    <p>
-        Search for skilled people near you.
-    </p>
+        <div>
+            <span>SKILLINK AI</span>
+
+            <h2>
+                What do you need help with?
+            </h2>
+
+            <p>
+                Describe what you need in your own words.
+                SkillLink will find the right type of service.
+            </p>
+        </div>
+    </div>
 
 
-    <div class="large-search">
+    <div class="ai-search-box">
 
-        <input
-            type="text"
-            id="serviceSearch"
-            placeholder="Search e.g. hairdresser, plumber..."
+        <textarea
+            id="aiRequest"
+            placeholder="Example: My laptop is not working and I need someone to fix it..."
+            rows="4"
+        ></textarea>
+
+        <button
+            id="aiSearchBtn"
+            class="btn btn-primary"
         >
-
-        <button id="searchBtn">
-            🔎 Search
+            ✨ Find a Service
         </button>
 
     </div>
 
+
+    <div
+        id="aiResult"
+        class="ai-result"
+    ></div>
+
 </section>
+
+
+<section>
+
+    <div class="section-title">
+
+        <h2>
+            Recommended Providers
+        </h2>
+
+    </div>
+
+    <div
+        class="dashboard-provider-grid"
+        id="providerGrid"
+    ></div>
+
+</section>
+
+
 
 
 <!-- CATEGORIES -->
@@ -241,6 +281,7 @@
 
 
 <script src="js/user-dashboard.js"></script>
+<script src="js/ai-search.js"></script>
 
 </body>
 

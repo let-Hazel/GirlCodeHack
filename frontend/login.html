@@ -4,250 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>SkillLink | Connect Skills</title>
 
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header class="navbar">
+    
+<html lang="en">
 
-    <div class="logo">
-        Skill<span>Link</span>
-    </div>
+<head>
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#how">How It Works</a>
-        <a href="#about">About</a>
-    </nav>
+    <meta charset="UTF-8">
 
-    <div class="nav-actions">
-        <a href="login.html" class="btn btn-outline">
-            Login
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+    
+
+
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+</head>
+
+
+<body class="auth-body">
+
+
+<div class="auth-container">
+
+
+    <div class="auth-brand">
+
+        <a href="index.html">
+
+            Skill<span>Link</span>
+
         </a>
 
-        <a href="signup.html" class="btn btn-primary">
-            Sign Up
-        </a>
-    </div>
-
-</header>
-
-
-<main>
-
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <span class="badge">
-            🌍 Community Skills Marketplace
-        </span>
-
-        <h1>
-            Connect skills with
-            <span>opportunity.</span>
-        </h1>
-
-        <p>
-            SkillLink connects people who need services
-            with skilled people in their communities.
-        </p>
-
-        <div class="hero-actions">
-
-            <a href="login.html" class="btn btn-primary">
-                Find a Service
-            </a>
-
-            <a href="signup.html" class="btn btn-outline">
-                Offer Your Skills
-            </a>
-
-        </div>
-
     </div>
 
 
-    <div class="hero-visual">
+    <div class="auth-card">
 
-        <div class="floating-card card-one">
-            💇🏽 Hairdresser
-            <small>2.4 km away</small>
-        </div>
-
-        <div class="floating-card card-two">
-            🔧 Plumber
-            <small>1.8 km away</small>
-        </div>
-
-        <div class="floating-card card-three">
-            💻 Tech Support
-            <small>3.1 km away</small>
-        </div>
-
-    </div>
-
-</section>
+        <form id="loginForm">
 
 
-<section class="roles">
+            <label>
+                Email address
+            </label>
 
-    <div class="section-heading">
-
-        <span>SKILLINK</span>
-
-        <h2>
-            Built for both sides of the community
-        </h2>
-
-        <p>
-            Whether you need help or have a skill to offer,
-            SkillLink gives you a simple way to connect.
-        </p>
-
-    </div>
-
-
-    <div class="role-grid">
-
-        <div class="role-card">
-
-            <div class="role-icon">
-                🔎
-            </div>
-
-            <h3>
-                I need a service
-            </h3>
-
-            <p>
-                Find people nearby who can provide the
-                service you are looking for.
-            </p>
-
-            <a
-                href="signup.html?role=user"
-                class="btn btn-primary"
+            <input
+                type="email"
+                id="signupEmail"
+                placeholder="you@example.com"
+                required
             >
-                Find a Service →
-            </a>
-
-        </div>
 
 
-        <div class="role-card">
 
-            <div class="role-icon">
-                💼
-            </div>
+            <label>
+                Password
+            </label>
 
-            <h3>
-                I offer a service
-            </h3>
-
-            <p>
-                Showcase your skills and connect with
-                people looking for your services.
-            </p>
-
-            <a
-                href="signup.html?role=provider"
-                class="btn btn-primary"
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Create a password"
+                required
             >
-                Offer My Skills →
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
 
 
-<section class="how" id="how">
+            <button
+                type="submit"
+                class="btn btn-primary auth-button"
+            >
+                Login →
+            </button>
 
-    <div class="section-heading">
-
-        <span>HOW IT WORKS</span>
-
-        <h2>
-            Simple. Local. Connected.
-        </h2>
-
-    </div>
+        </form>
 
 
-    <div class="steps">
-
-        <div class="step">
-
-            <div class="step-number">1</div>
-
-            <h3>
-                Create an account
-            </h3>
+        <div class="auth-footer">
 
             <p>
-                Register as a service user or
-                service provider.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">2</div>
-
-            <h3>
-                Discover
-            </h3>
-
-            <p>
-                Find services or customers
-                in your community.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">3</div>
-
-            <h3>
-                Connect
-            </h3>
-
-            <p>
-                Communicate directly and arrange
-                the service.
+                Don't have an account?
+                <a href="login.html">
+                    Signup
+                </a>
             </p>
 
         </div>
 
     </div>
 
-</section>
 
-</main>
+</div>
 
 
-<footer>
-
-    <div class="logo">
-        Skill<span>Link</span>
-    </div>
-
-    <p>
-        Connecting skills with opportunity.
-    </p>
-
-</footer>
-
+<script src="js/auth.js"></script>
 
 </body>
+
 </html>
+        

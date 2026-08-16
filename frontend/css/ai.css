@@ -1,0 +1,310 @@
+/* ==========================================
+   SKILLINK AI SEARCH
+========================================== */
+
+.ai-heading {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+
+.ai-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #eeeaff;
+
+    font-size: 24px;
+}
+
+
+.ai-heading span {
+    display: block;
+
+    color: #6c4cff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 5px;
+}
+
+
+.ai-heading h2 {
+    margin-bottom: 7px;
+}
+
+
+.ai-heading p {
+    color: #64748b;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   AI INPUT
+========================================== */
+
+.ai-search-box {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.ai-search-box textarea {
+    width: 100%;
+
+    resize: vertical;
+
+    min-height: 100px;
+
+    padding: 16px;
+
+    border: 1px solid #dbe1ea;
+
+    border-radius: 12px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+
+.ai-search-box textarea:focus {
+    border-color: #6c4cff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(108, 76, 255, 0.10);
+}
+
+
+.ai-search-box button {
+    align-self: flex-start;
+}
+
+
+/* ==========================================
+   AI RESULT
+========================================== */
+
+.ai-result {
+    margin-top: 20px;
+}
+
+
+.ai-result-card {
+    padding: 22px;
+
+    background: #f5f3ff;
+
+    border: 1px solid #ddd7ff;
+
+    border-radius: 14px;
+}
+
+
+.ai-result-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 10px;
+}
+
+
+.ai-result-header span:first-child {
+    color: #6c4cff;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.ai-match {
+    padding: 5px 9px;
+
+    background: #6c4cff;
+
+    color: white;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+.ai-result-card h3 {
+    font-size: 21px;
+
+    margin-bottom: 7px;
+}
+
+
+.ai-result-card > p {
+    color: #64748b;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   REQUEST
+========================================== */
+
+.ai-request {
+    margin: 15px 0;
+
+    padding: 12px;
+
+    background: white;
+
+    border-radius: 9px;
+}
+
+
+.ai-request strong {
+    font-size: 12px;
+
+    color: #6c4cff;
+}
+
+
+.ai-request p {
+    margin-top: 5px;
+
+    color: #475569;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.ai-loading {
+    padding: 20px;
+
+    text-align: center;
+
+    background: #f5f3ff;
+
+    color: #6c4cff;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.ai-error {
+    padding: 15px;
+
+    background: #fff1f2;
+
+    color: #be123c;
+
+    border-radius: 10px;
+}
+
+
+/* ==========================================
+   NO PROVIDERS
+========================================== */
+
+.no-providers {
+    grid-column: 1 / -1;
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: white;
+
+    border-radius: 15px;
+}
+
+
+.no-providers div {
+    font-size: 35px;
+
+    margin-bottom: 10px;
+}
+
+
+.no-providers p {
+    color: #64748b;
+
+    margin-top: 7px;
+}
+
+
+/* ==========================================
+   PROVIDER DESCRIPTION
+========================================== */
+
+.provider-description {
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin: 10px 0 15px;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    .ai-heading {
+        flex-direction: column;
+    }
+
+    .ai-search-box button {
+        width: 100%;
+    }
+
+    .ai-result-header {
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+}
