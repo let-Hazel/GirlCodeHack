@@ -58,7 +58,7 @@
 
             <input
                 type="email"
-                id="signupEmail"
+                id="loginEmail"
                 placeholder="you@example.com"
                 required
             >
@@ -71,10 +71,18 @@
 
             <input
                 type="password"
-                id="signupPassword"
+                id="loginPassword"
                 placeholder="Create a password"
                 required
             >
+
+
+            <label for="loginRole">I am logging in as</label>
+
+            <select id="loginRole" required>
+                <option value="user">Service User</option>
+                <option value="provider">Service Provider</option>
+            </select>
 
 
             <button
@@ -104,9 +112,8 @@
 </div>
 
 
-<script src="js/auth.js"></script>
-
-</body>
+<script src="js/api.js"></script>
+<script src="js/auth.js"></script></body>
 
 </html>
         

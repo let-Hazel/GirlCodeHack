@@ -1,157 +1,101 @@
-# README — Community Safety Assistance Platform
+# SkillLink — Integrated Frontend + Backend Prototype
 
-## Problem Statement
+This version connects the existing SkillLink frontend to a Flask REST API and SQLite database.
 
-Underserved communities often face delayed responses to local safety incidents due to limited resources and poor communication channels. Residents may not have a reliable way to quickly inform nearby community members who could assist with non-severe incidents, while serious incidents may need to be escalated to the appropriate authorities.
+## Features connected
 
-## Proposed Solution
+- Registration for service users and service providers
+- Login with account type
+- SQLite persistence
+- Provider service/skill creation
+- Live provider listing from the database
+- Provider search through the API
+- Service requests
+- Provider accept/complete workflow
+- Provider ratings API
+- WhatsApp contact button
+- AI-style natural language matching against live provider data
+- CORS configured for local frontend development
 
-The proposed system is a **community safety reporting and assistance platform** that connects residents with people nearby who may be able to assist with local incidents.
-
-When a resident reports an incident, nearby community members can view the report and indicate whether they are able to help. This allows communities to respond to incidents that can safely be handled locally.
-
-For incidents that are **severe or require professional intervention**, the system can escalate the report to the appropriate authorities.
-
-The system therefore follows a simple principle:
-
-```text
-Incident reported
-       ↓
-Nearby community members notified
-       ↓
-Can the community assist?
-   ↙             ↘
- Yes              No / Severe
-  ↓                  ↓
-Community        Escalate to
-assistance       authorities
-```
-
-## Main Features
-
-### 1. Report an Incident
-
-A resident can report a local safety incident by providing information such as:
-
-* Incident type.
-* Location.
-* Description.
-* Severity.
-* Time of incident.
-* Optional supporting information.
-
-### 2. Notify Nearby Community Members
-
-Once an incident is reported, relevant nearby community members can be notified.
-
-They can view information about the incident and decide whether they are able and willing to assist.
-
-### 3. Community Assistance
-
-For incidents that do not require emergency services, community members can offer assistance.
-
-For example:
-
-* Helping someone who needs immediate but non-emergency assistance.
-* Checking on a nearby community member.
-* Providing relevant information.
-* Helping direct people away from an unsafe area.
-* Connecting the person with an appropriate local resource.
-
-### 4. Severity Assessment
-
-Reports can be categorised according to their severity.
-
-For example:
+## Project structure
 
 ```text
-LOW
-↓
-Community assistance may be sufficient
-
-MEDIUM
-↓
-Community assistance + monitoring
-
-HIGH / SEVERE
-↓
-Escalate to appropriate authorities
+GirlCodeHack/
+├── APIs/
+│   ├── app.py
+│   ├── main.py
+│   └── database/
+│       ├── __init__.py
+│       └── databases.py
+├── AI/
+│   └── model.py
+├── frontend/
+│   ├── index.html
+│   ├── login.html
+│   ├── signup.html
+│   ├── service-user.html
+│   ├── service-provider.html
+│   ├── css/
+│   └── js/
+│       ├── api.js
+│       ├── auth.js
+│       ├── user-dashboard.js
+│       ├── provider-dashboard.js
+│       └── ai-search.js
+├── requirements.txt
+└── run.py
 ```
 
-### 5. Authority Escalation
+## Run locally
 
-If an incident is severe, dangerous, or requires professional intervention, the system should provide an escalation pathway to the appropriate authorities.
+From the `GirlCodeHack` directory:
 
-The community should **not be expected to handle dangerous situations themselves**.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python run.py
+```
 
-### 6. Incident Status
-
-Users can see the progress of an incident:
+The API runs at:
 
 ```text
-Reported
-   ↓
-Community Notified
-   ↓
-Assistance Offered
-   ↓
-Being Handled
-   ↓
-Resolved
+http://127.0.0.1:5000
 ```
 
-For severe incidents:
+Check it with:
 
 ```text
-Reported
-   ↓
-Identified as Severe
-   ↓
-Escalated
-   ↓
-Authority Response
-   ↓
-Resolved
+http://127.0.0.1:5000/health
 ```
 
-## Example Scenario
+In a second terminal, from the same project directory:
 
-A resident notices that an elderly neighbour needs assistance.
+```bash
+python3 -m http.server 5500 --directory frontend
+```
 
-They submit a report through the platform.
+Then open:
 
-Nearby community members receive the notification. One person who is close by and able to help responds to the report.
+```text
+http://127.0.0.1:5500/signup.html
+```
 
-The incident is therefore handled within the community without unnecessarily involving emergency services.
+## Demo flow
 
-However, if a resident reports a serious crime, fire, or another situation requiring professional emergency intervention, the report is escalated to the relevant authorities instead of asking community members to put themselves in danger.
+1. Register a Service Provider account.
+2. Log in as the provider.
+3. Click **+ Add Service** and add a skill.
+4. Log out.
+5. Register a Service User account.
+6. Log in as the service user.
+7. The provider should appear from the SQLite database.
+8. Use the AI search box or provider search.
+9. Click **Request Service**.
+10. Log back in as the provider.
+11. Accept the request.
+12. Complete the request.
 
-## Goals
+## Important prototype note
 
-The system aims to:
-
-1. Improve communication between nearby community members.
-2. Encourage safe community-based assistance.
-3. Reduce unnecessary delays in getting help.
-4. Identify incidents that require professional intervention.
-5. Provide an escalation pathway for severe incidents.
-6. Create a central record of reported community safety incidents.
-
-## Target Users
-
-* Community residents.
-* Community volunteers.
-* Community safety representatives.
-* Relevant authorities or emergency responders.
-
-## Core Principle
-
-The platform is **not intended to replace emergency services**.
-
-Instead, it creates a communication layer between community members:
-
-> **If the community can safely help, enable the community to help. If the situation is severe, escalate it to the appropriate authorities.**
-
-## Expected Impact
-
-The platform aims to strengthen communication within underserved communities by allowing nearby residents to become aware of incidents that they may be able to safely assist with, while ensuring that serious incidents can be escalated to people with the appropriate resources and authority.
+Passwords are currently stored as plain text because this is a local prototype. Before production deployment, replace this with password hashing and proper session/token authentication.

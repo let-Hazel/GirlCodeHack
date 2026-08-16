@@ -1,197 +1,55 @@
-/* =========================
-   SIGN UP
-========================= */
-
-const signupForm =
-    document.getElementById("signupForm");
-
+const signupForm = document.getElementById('signupForm');
 
 if (signupForm) {
+    signupForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const fullName = document.getElementById('signupName').value.trim();
+        const parts = fullName.split(/\s+/);
+        const name = parts.shift() || '';
+        const surname = parts.join(' ') || 'User';
+        const role = document.querySelector('input[name="role"]:checked')?.value || 'user';
 
-    signupForm.addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            const name =
-                document.getElementById(
-                    "signupName"
-                ).value;
-
-            const email =
-                document.getElementById(
-                    "signupEmail"
-                ).value;
-
-            const phone =
-                document.getElementById(
-                    "signupPhone"
-                ).value;
-
-            const password =
-                document.getElementById(
-                    "signupPassword"
-                ).value;
-
-
-            const role =
-                document.querySelector(
-                    'input[name="role"]:checked'
-                ).value;
-
-
-            const user = {
-
-                name: name,
-
-                email: email,
-
-                phone: phone,
-
-                password: password,
-
-                role: role
-
-            };
-
-
-            /*
-             * DEMO ONLY
-             *
-             * Do not store real passwords
-             * in localStorage in a production app.
-             */
-
-            localStorage.setItem(
-                "skilllinkUser",
-                JSON.stringify(user)
-            );
-
-
-            localStorage.setItem(
-                "isLoggedIn",
-                "true"
-            );
-
-
-            if (role === "provider") {
-
-                window.location.href =
-                    "service-provider.html";
-
-            } else {
-
-                window.location.href =
-                    "service-user.html";
-
-            }
-
+        try {
+            await api('/users', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name,
+                    surname,
+                    email: document.getElementById('signupEmail').value.trim(),
+                    phone: document.getElementById('signupPhone').value.trim(),
+                    password: document.getElementById('signupPassword').value,
+                    location: document.getElementById('signupLocation')?.value.trim() || '',
+                    role
+                })
+            });
+            alert('Account created successfully. Please log in.');
+            window.location.href = 'login.html';
+        } catch (error) {
+            alert(error.message);
         }
-    );
-
+    });
 }
 
-
-/* =========================
-   LOGIN
-========================= */
-
-const loginForm =
-    document.getElementById("loginForm");
-
+const loginForm = document.getElementById('loginForm');
 
 if (loginForm) {
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const role = document.getElementById('loginRole')?.value || 'user';
 
-    loginForm.addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            const email =
-                document.getElementById(
-                    "loginEmail"
-                ).value;
-
-            const password =
-                document.getElementById(
-                    "loginPassword"
-                ).value;
-
-            const role =
-                document.getElementById(
-                    "loginRole"
-                ).value;
-
-
-            const storedUser =
-                JSON.parse(
-                    localStorage.getItem(
-                        "skilllinkUser"
-                    )
-                );
-
-
-            if (!storedUser) {
-
-                alert(
-                    "No account found. Please sign up first."
-                );
-
-                return;
-
-            }
-
-
-            if (
-                storedUser.email !== email ||
-                storedUser.password !== password
-            ) {
-
-                alert(
-                    "Incorrect email or password."
-                );
-
-                return;
-
-            }
-
-
-            if (
-                storedUser.role !== role
-            ) {
-
-                alert(
-                    "This account belongs to a different user type."
-                );
-
-                return;
-
-            }
-
-
-            localStorage.setItem(
-                "isLoggedIn",
-                "true"
-            );
-
-
-            if (role === "provider") {
-
-                window.location.href =
-                    "service-provider.html";
-
-            } else {
-
-                window.location.href =
-                    "service-user.html";
-
-            }
-
+        try {
+            const user = await api('/login', {
+                method: 'POST',
+                body: JSON.stringify({ email, password, role })
+            });
+            saveSession(user);
+            window.location.href = user.role === 'provider'
+                ? 'service-provider.html'
+                : 'service-user.html';
+        } catch (error) {
+            alert(error.message);
         }
-    );
-
+    });
 }

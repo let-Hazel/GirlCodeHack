@@ -1,255 +1,80 @@
-const storedUser =
-    JSON.parse(
-        localStorage.getItem(
-            "skilllinkUser"
-        )
-    );
+const currentUser = getSession();
+if (!currentUser || currentUser.role !== 'user') window.location.href = 'login.html';
 
+const userName = document.getElementById('userName');
+if (userName) userName.textContent = currentUser?.name || 'User';
 
-/* =========================
-   PROTECT PAGE
-========================= */
+const providerGrid = document.querySelector('#providerGrid');
+const searchInput = document.getElementById('serviceSearch');
+const searchBtn = document.getElementById('searchBtn');
 
-if (
-    !storedUser ||
-    storedUser.role !== "user"
-) {
-
-    window.location.href =
-        "login.html";
-
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, c => ({
+        '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+    }[c]));
 }
 
-
-/* =========================
-   USER NAME
-========================= */
-
-const userName =
-    document.getElementById(
-        "userName"
-    );
-
-
-if (userName && storedUser) {
-
-    userName.textContent =
-        storedUser.name;
-
-}
-
-
-/* =========================
-   PROVIDERS
-========================= */
-
-const providers = [
-
-    {
-        name: "Thandi M.",
-        skill: "Hairdresser",
-        location: "Soweto",
-        phone: "27820000001"
-    },
-
-    {
-        name: "Sipho K.",
-        skill: "Plumber",
-        location: "Johannesburg",
-        phone: "27820000002"
-    },
-
-    {
-        name: "Lerato P.",
-        skill: "Graphic Designer",
-        location: "Sandton",
-        phone: "27820000003"
-    },
-
-    {
-        name: "Mpho T.",
-        skill: "Computer Technician",
-        location: "Alexandra",
-        phone: "27820000004"
-    },
-
-    {
-        name: "Nomsa D.",
-        skill: "Tutor",
-        location: "Tembisa",
-        phone: "27820000005"
-    }
-
-];
-
-
-const providerGrid =
-    document.getElementById(
-        "providerGrid"
-    );
-
-
-function displayProviders(list) {
-
-    providerGrid.innerHTML = "";
-
-
-    list.forEach(provider => {
-
-        const initials =
-            provider.name
-                .split(" ")
-                .map(word => word[0])
-                .join("");
-
-
-        const card =
-            document.createElement("div");
-
-
-        card.className =
-            "provider-card";
-
-
-        card.innerHTML = `
-
-            <div class="provider-avatar">
-                ${initials}
-            </div>
-
-            <h3>
-                ${provider.name}
-            </h3>
-
-            <p class="skill">
-                ${provider.skill}
-            </p>
-
-            <p class="location">
-                📍 ${provider.location}
-            </p>
-
-            <button
-                class="whatsapp-btn"
-                onclick="contactProvider('${provider.phone}')"
-            >
-                WhatsApp Provider
-            </button>
-
-        `;
-
-
-        providerGrid.appendChild(card);
-
-    });
-
-}
-
-
-displayProviders(providers);
-
-
-/* =========================
-   SEARCH
-========================= */
-
-const searchBtn =
-    document.getElementById(
-        "searchBtn"
-    );
-
-const searchInput =
-    document.getElementById(
-        "serviceSearch"
-    );
-
-
-searchBtn.addEventListener(
-    "click",
-    searchProviders
-);
-
-
-function searchProviders() {
-
-    const query =
-        searchInput.value
-            .toLowerCase()
-            .trim();
-
-
-    if (!query) {
-
+async function loadProviders(search = '') {
+    if (!providerGrid) return;
+    try {
+        const endpoint = search ? `/providers?skill=${encodeURIComponent(search)}` : '/providers';
+        const providers = await api(endpoint);
         displayProviders(providers);
-
-        return;
-
+    } catch (error) {
+        providerGrid.innerHTML = `<p>${escapeHtml(error.message)}</p>`;
     }
-
-
-    const results =
-        providers.filter(
-            provider =>
-
-                provider.name
-                    .toLowerCase()
-                    .includes(query)
-
-                ||
-
-                provider.skill
-                    .toLowerCase()
-                    .includes(query)
-
-                ||
-
-                provider.location
-                    .toLowerCase()
-                    .includes(query)
-        );
-
-
-    displayProviders(results);
-
 }
 
+function displayProviders(providers) {
+    if (!providerGrid) return;
+    providerGrid.innerHTML = '';
+    if (!providers.length) {
+        providerGrid.innerHTML = '<div class="no-providers"><h3>No providers found</h3><p>Try another search.</p></div>';
+        return;
+    }
 
-/* =========================
-   WHATSAPP
-========================= */
+    providers.forEach(provider => {
+        const initials = `${provider.name?.[0] || ''}${provider.surname?.[0] || ''}`;
+        const card = document.createElement('div');
+        card.className = 'provider-card';
+        card.innerHTML = `
+            <div class="provider-avatar">${escapeHtml(initials)}</div>
+            <h3>${escapeHtml(provider.name)} ${escapeHtml(provider.surname)}</h3>
+            <p class="skill">${escapeHtml(provider.skill_name)}</p>
+            <p class="location">📍 ${escapeHtml(provider.location || 'Location not provided')}</p>
+            <p>⭐ ${Number(provider.avg_rating || 0).toFixed(1)}</p>
+            <p>R${provider.price_min} - R${provider.price_max}</p>
+            <p>${escapeHtml(provider.description || '')}</p>
+            <button class="btn btn-primary request-service">Request Service</button>
+            <button class="whatsapp-btn contact-provider">💬 WhatsApp Provider</button>
+        `;
+        card.querySelector('.request-service').addEventListener('click', () => requestService(provider));
+        card.querySelector('.contact-provider').addEventListener('click', () => contactProvider(provider.phone));
+        providerGrid.appendChild(card);
+    });
+}
+
+async function requestService(provider) {
+    const budget = prompt(`Budget for ${provider.skill_name} (R${provider.price_min} - R${provider.price_max}):`, provider.price_max);
+    if (budget === null) return;
+    try {
+        await api('/requests', {
+            method: 'POST',
+            body: JSON.stringify({ skill_id: provider.skill_id, requester_id: currentUser.id, budget: Number(budget) })
+        });
+        alert('Service request sent to the provider.');
+    } catch (error) { alert(error.message); }
+}
 
 function contactProvider(phone) {
-
-    const message =
-        encodeURIComponent(
-            "Hi, I found your service on SkillLink and would like to enquire about your services."
-        );
-
-
-    window.open(
-        `https://wa.me/${phone}?text=${message}`,
-        "_blank"
-    );
-
+    if (!phone) return alert('This provider has not added a phone number.');
+    const clean = String(phone).replace(/\D/g, '');
+    const message = encodeURIComponent('Hi, I found your service on SkillLink and would like to enquire about your services.');
+    window.open(`https://wa.me/${clean}?text=${message}`, '_blank');
 }
 
+searchBtn?.addEventListener('click', () => loadProviders(searchInput?.value.trim() || ''));
+searchInput?.addEventListener('keydown', e => { if (e.key === 'Enter') loadProviders(searchInput.value.trim()); });
+document.getElementById('logoutBtn')?.addEventListener('click', logout);
 
-/* =========================
-   LOGOUT
-========================= */
-
-document
-    .getElementById("logoutBtn")
-    .addEventListener(
-        "click",
-        () => {
-
-            localStorage.removeItem(
-                "isLoggedIn"
-            );
-
-            window.location.href =
-                "login.html";
-
-        }
-    );
+loadProviders();
