@@ -1,119 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>SkillLink | Login</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+    
+
+
 </head>
 
 <body>
 
-    
-<html lang="en">
+    <!-- =====================================================
+         LOGIN PAGE
+    ====================================================== -->
 
-<head>
+    <main class="auth-page">
 
-    <meta charset="UTF-8">
+        <div class="auth-container">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-    
+            <!-- LOGO -->
 
-
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/auth.css">
-
-</head>
+            <div class="auth-logo">
+                Skill<span>Link</span>
+            </div>
 
 
-<body class="auth-body">
+            <!-- LOGIN CARD -->
+
+            <div class="auth-card">
+
+                <div class="auth-header">
+
+                    <h1>
+                        Welcome back
+                    </h1>
+
+                    <p>
+                        Log in to continue to SkillLink.
+                    </p>
+
+                </div>
 
 
-<div class="auth-container">
+                <!-- =================================================
+                     LOGIN FORM
+                ================================================== -->
+
+                <form id="loginForm" novalidate>
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
 
 
-    <div class="auth-brand">
+                    <!-- PASSWORD -->
 
-        <a href="index.html">
+                    <div class="form-group">
 
-            Skill<span>Link</span>
+                        <label for="loginPassword">
+                            Password
+                        </label>
 
-        </a>
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
 
-    </div>
-
-
-    <div class="auth-card">
-
-        <form id="loginForm">
-
-
-            <label>
-                Email address
-            </label>
-
-            <input
-                type="email"
-                id="loginEmail"
-                placeholder="you@example.com"
-                required
-            >
+                    </div>
 
 
+                    <!-- ROLE -->
 
-            <label>
-                Password
-            </label>
+                    <div class="form-group">
 
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Create a password"
-                required
-            >
+                        <label for="loginRole">
+                            I am logging in as
+                        </label>
 
+                        <select
+                            id="loginRole"
+                            name="role"
+                            required
+                        >
 
-            <label for="loginRole">I am logging in as</label>
+                            <option value="user">
+                                I need a service
+                            </option>
 
-            <select id="loginRole" required>
-                <option value="user">Service User</option>
-                <option value="provider">Service Provider</option>
-            </select>
+                            <option value="provider">
+                                I offer a service
+                            </option>
 
+                        </select>
 
-            <button
-                type="submit"
-                class="btn btn-primary auth-button"
-            >
-                Login →
-            </button>
-
-        </form>
+                    </div>
 
 
-        <div class="auth-footer">
+                    <!-- LOGIN BUTTON -->
 
-            <p>
-                Don't have an account?
-                <a href="login.html">
-                    Signup
-                </a>
-            </p>
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="btn btn-primary"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <!-- ERROR MESSAGE -->
+
+                <div
+                    id="loginMessage"
+                    class="auth-message"
+                    aria-live="polite"
+                ></div>
+
+
+                <!-- SIGN UP -->
+
+                <div class="auth-footer">
+
+                    <p>
+                        Don't have an account?
+                        <a href="signup.html">
+                            Sign up
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+    </main>
 
 
-</div>
+    <!-- =====================================================
+         JAVASCRIPT
+         
+         IMPORTANT:
+         api.js MUST load before auth.js
+    ====================================================== -->
 
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
 
-<script src="js/api.js"></script>
-<script src="js/auth.js"></script></body>
+</body>
 
 </html>
-        
