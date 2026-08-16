@@ -1,18 +1,7 @@
 from database.databases import *
+import _json
 
 def register(request):
-    # name = input("Name: ")
-    # surname = input("Surname: ")
-    # email = input("Email: ")
-
-    # identity = input("Are you using a Passport or South African ID (type 'P' for Passport or 'I' for ID): ").lower()
-    # if identity == "i":
-    #     identity = input("Input your Id number: ")
-    # else:
-    #     identity = input("Input your Passport number: ")
-
-    # address = input("Address: ")
-    # password = input("Enter a password: ")
     name = request["name"]
     surname = request["surname"]
     email = request["email"]
@@ -23,8 +12,6 @@ def register(request):
     return create_user(identity, name, surname, email, password, address)
 
 def log_in(request):
-    # email = input("Enter your email: ")
-    # password = input("Enter your password: ")
     email = request["email"]
     password = request["password"]
     return log_in(email, password)
@@ -42,4 +29,5 @@ def main():
     else:
         print("Invalid!")
 
-main()
+if __name__ == "__main__":
+    main()

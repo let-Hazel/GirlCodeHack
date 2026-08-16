@@ -4,14 +4,11 @@ import uuid
 
 DB_PATH = "skillLink.db"
 
-
-
 def get_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
-
 
 
 def init_db():
@@ -23,6 +20,7 @@ def init_db():
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             surname TEXT NOT NULL,
+            phone TEXT,
             email TEXT NOT NULL UNIQUE,
             password TEXT,
             location TEXT,
@@ -111,46 +109,30 @@ def init_db():
     print("Database tables created successfully!")
 
 
-
 def _now():
     return date.today().isoformat()
 
 
-
-def create_user(id, name, surname, email, password="", location=""):
-
+def create_user(name, surname, email, password="", phone="", location=""):
+    user_id = str(uuid.uuid4())
     conn = get_connection()
     now = _now()
 
     try:
         with conn:
-
-            cursor = conn.execute("""
+            conn.execute("""
                 INSERT INTO users
-                (
-                    id,
-                    name,
-                    surname,
-                    email,
-                    password,
-                    location,
-                    created_at
-                )
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                (id, name, surname, email, password, phone, location, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             """, (
-                id,
-                name,
-                surname,
-                email,
-                password,
-                location,
-                now
+                user_id, name, surname, email, password, phone, location, now
             ))
-
-            return cursor.lastrowid
-
     except sqlite3.IntegrityError:
         raise ValueError("Email already exists")
+    finally:
+        conn.close()
+
+    return user_id
 
 
 def log_in(email, password):
@@ -158,7 +140,7 @@ def log_in(email, password):
     conn = get_connection()
 
     row = conn.execute("""
-        SELECT *
+        SELECT id, name, surname, email
         FROM users
         WHERE email = ?
         AND password = ?
@@ -166,9 +148,8 @@ def log_in(email, password):
 
     conn.close()
 
-    if row:
-        return "Welcome Back!"
-    return "User does not exist"
+    return dict(row) if row else None
+
 
 def get_user(user_id):
 
@@ -253,7 +234,6 @@ def deactivate_skill(skill_id):
 
 
 def get_skill(skill_id):
-
     conn = get_connection()
 
     row = conn.execute("""
@@ -271,7 +251,6 @@ def get_skill(skill_id):
 
 
 def browse_skills(category=None):
-
     conn = get_connection()
 
     if category:
@@ -297,7 +276,6 @@ def browse_skills(category=None):
 
 
 def create_request(skill_id, requester_id, budget):
-
     skill = get_skill(skill_id)
 
     if skill is None:
@@ -338,7 +316,6 @@ def create_request(skill_id, requester_id, budget):
 
 
 def get_request(request_id):
-
     conn = get_connection()
 
     row = conn.execute("""
@@ -356,7 +333,6 @@ def get_request(request_id):
 
 
 def get_requests_for_provider(provider_id):
-
     conn = get_connection()
 
     rows = conn.execute("""
@@ -371,7 +347,6 @@ def get_requests_for_provider(provider_id):
 
 
 def get_requests_for_requester(requester_id):
-
     conn = get_connection()
 
     rows = conn.execute("""
@@ -386,7 +361,6 @@ def get_requests_for_requester(requester_id):
 
 
 def accept_request(request_id):
-
     conn = get_connection()
 
     request = conn.execute("""
@@ -421,7 +395,6 @@ def accept_request(request_id):
 
 
 def complete_request(request_id):
-
     conn = get_connection()
 
     request = conn.execute("""
@@ -455,9 +428,7 @@ def complete_request(request_id):
     conn.close()
 
 
-
 def add_rating(request_id, stars, comment=""):
-
     if stars < 1 or stars > 5:
         raise ValueError(
             "Rating must be between 1 and 5"
@@ -558,7 +529,6 @@ def add_rating(request_id, stars, comment=""):
 
 
 def get_ratings_for_provider(provider_id):
-
     conn = get_connection()
 
     rows = conn.execute("""
